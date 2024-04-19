@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events-api", "montisgal-events-api\montisgal-events-api.csproj", "{C5BF7026-CFC3-4310-9167-B575E4F5535D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5BF7026-CFC3-4310-9167-B575E4F5535D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BF7026-CFC3-4310-9167-B575E4F5535D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BF7026-CFC3-4310-9167-B575E4F5535D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BF7026-CFC3-4310-9167-B575E4F5535D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
