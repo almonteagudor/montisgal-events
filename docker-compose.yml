@@ -1,18 +1,19 @@
-﻿version: '3.1'
-
-services:
-  db:
+﻿services:
+  montisgal-events:
+    image: montisgal-events
+    build:
+      context: .
+      dockerfile: montisgal-events/Dockerfile
+  montisgal-events-db:
     image: mysql:8.2.0
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: montisgal_events_api
+      MYSQL_DATABASE: montisgal_events
       MYSQL_USER: montisgal
       MYSQL_PASSWORD: montisgal
     ports:
       - "3306:3306"
     volumes:
-      - montisgal-events-api-db:/var/lib/mysql
-
+      - montisgal-events-db:/var/lib/mysql
 volumes:
-  montisgal-events-api-db:
+  montisgal-events-db:
