@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using montisgal_events.Data;
-using montisgal_events.Data.Entities;
 
 namespace montisgal_events.Business.UseCases.Group;
 
@@ -10,10 +9,13 @@ public class DeleteGroupUseCase(ApplicationDbContext applicationDbContext, IHttp
     {
         var ownerId = contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-        GroupEntity? group = applicationDbContext.Groups.Where(x => x.OwnerId == ownerId && x.Id == groupId).FirstOrDefault();
+        var group = applicationDbContext.Groups.FirstOrDefault(groupEntity => groupEntity.OwnerId == ownerId && groupEntity.Id == groupId);
+        
         if (group == null) { return  false; }
+        
         applicationDbContext.Groups.Remove(group);
         await applicationDbContext.SaveChangesAsync();
+        
         return true;
     }
 }

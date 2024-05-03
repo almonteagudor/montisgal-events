@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using montisgal_events;
 using montisgal_events.Business.UseCases.Group;
 using montisgal_events.Data;
 
@@ -8,9 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection") ??
                        throw new InvalidOperationException("Connection string 'MySqlConnection' not found.");
 
-builder.Services.AddScoped<AddGroupUseCase>();
-builder.Services.AddScoped<GetGroupsUseCase>();
-builder.Services.AddScoped<DeleteGroupUseCase>();
+builder.Services.AddMontisgalEventsDependencies();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
 

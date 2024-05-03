@@ -7,13 +7,19 @@ namespace montisgal_events.Controllers;
 
 [Authorize]
 [Route("groups")]
-public class GroupController(AddGroupUseCase addGroupUseCase, GetGroupsUseCase getGroupsUseCase, DeleteGroupUseCase deleteGroupUseCase) : Controller
+public class GroupController(
+    AddGroupUseCase addGroupUseCase,
+    GetGroupsUseCase getGroupsUseCase,
+    DeleteGroupUseCase deleteGroupUseCase,
+    UpdateGroupUseCase updateGroupUseCase,
+    GetGroupUseCase getGroupUseCase
+) : Controller
 {
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
         var groupList = await getGroupsUseCase.Execute();
-        
+
         return View(new IndexViewModel()
         {
             Groups = groupList
@@ -34,7 +40,23 @@ public class GroupController(AddGroupUseCase addGroupUseCase, GetGroupsUseCase g
         return RedirectToAction("Index");
     }
 
-    [HttpDelete("/{id}")]
+    [HttpGet("update/{id:guid}")]
+    public async Task<IActionResult> Update(Guid id)
+    {
+        var groupEntity = getGroupUseCase.Execute(id);
+
+        return RedirectToAction("Index");
+    }
+    
+    [HttpPost("update/{id:guid}")]
+    public async Task<IActionResult> Update(Guid id, EditViewModel request)
+    {
+        var isUpdated = await updateGroupUseCase.Execute(id, request.Name, request.Description, request.IsPublic);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost("/{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var isDeleted = await deleteGroupUseCase.Execute(id);

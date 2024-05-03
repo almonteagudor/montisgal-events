@@ -26,11 +26,11 @@
                         <input class="form-check-input" readonly asp-for="@group.IsPublic" type="checkbox">
                     </div>
                 </td>
-                <td>
-                    <form  asp-controller="Group" asp-action="Delete" asp-route-id = "@group.Id" asp-method="post" >
-                    <button type="submit" class="btn btn-outline-danger">
-                        <i class="bi bi-archive"></i>
-                    </button>
+                <td class="d-flex">
+                    <form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id" asp-method="post" class="me-1">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="bi bi-archive"></i>
+                        </button>
                     </form>
                     <button type="button" class="btn btn-outline-primary">
                         <i class="bi bi-pencil"></i>
