@@ -10,6 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("MySqlConnectio
 
 builder.Services.AddScoped<AddGroupUseCase>();
 builder.Services.AddScoped<GetGroupsUseCase>();
+builder.Services.AddScoped<DeleteGroupUseCase>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(connectionString));
 
