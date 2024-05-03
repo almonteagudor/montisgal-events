@@ -6,7 +6,7 @@ namespace montisgal_events.Data;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    public DbSet<Group> Groups { get; set; }
+    public DbSet<GroupEntity> Groups { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

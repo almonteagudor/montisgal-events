@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace montisgal_events.Data.Entities;
 
-public class Group(Guid id, string name, string description, bool isPublic)
+public class GroupEntity(Guid id, string name, string description, bool isPublic, string ownerId)
 {
     [Key] public Guid Id { get; init; } = id;
 
@@ -13,7 +13,7 @@ public class Group(Guid id, string name, string description, bool isPublic)
 
     public bool IsPublic { get; set; } = isPublic;
 
-    public string OwnerId { get; set; }
+    public string OwnerId { get; set; } = ownerId;
 
     public IdentityUser Owner { get; set; }
 }
