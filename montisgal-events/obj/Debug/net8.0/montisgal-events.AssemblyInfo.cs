@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("montisgal-events")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a7299a375ae32d7c99c3e9f88860fcb6cfc62b0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c78d49aa4a5ac69de58dc2de7551b00bab5aac6f")]
 [assembly: System.Reflection.AssemblyProductAttribute("montisgal-events")]
 [assembly: System.Reflection.AssemblyTitleAttribute("montisgal-events")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
