@@ -1,12 +1,9 @@
 namespace montisgal_events.Business.Dtos.Group;
 
-public class GroupDto
+public class GroupDto(Guid id, string name, string? description, bool isPublic)
 {
-    public Guid Id { get; set; }
-    
-    public string Name { get; set; }
-
-    public string Description { get; set; }
-
-    public bool IsPublic { get; set; }
+    public Guid Id { get; } = id;
+    public string Name { get; } = name;
+    public string? Description { get; } = description;
+    public bool IsPublic { get; } = isPublic;
 }

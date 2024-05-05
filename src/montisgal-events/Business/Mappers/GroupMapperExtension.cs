@@ -5,15 +5,9 @@ namespace montisgal_events.Business.Mappers;
 
 public static class GroupMapperExtension
 {
-    public static GroupDto? ToDto(this GroupEntity groupEntity)
+    public static GroupDto ToDto(this GroupEntity groupEntity)
     {
-        return new GroupDto()
-        {
-            Id = groupEntity.Id,
-            Name = groupEntity.Name,
-            Description = groupEntity.Description,
-            IsPublic = groupEntity.IsPublic
-        };
+        return new GroupDto(groupEntity.Id, groupEntity.Name, groupEntity.Description, groupEntity.IsPublic);
     }
     
     public static List<GroupDto> ToDto(this IEnumerable<GroupEntity> groupEntities)
