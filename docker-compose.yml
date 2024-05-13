@@ -1,9 +1,9 @@
 ﻿services:
-  montisgal-events:
-    image: montisgal-events
+  montisgal-events.mvc:
+    image: montisgal-events.mvc
     build:
       context: .
-      dockerfile: montisgal-events/Dockerfile
+      dockerfile: src/montisgal-events.mvc/Dockerfile
   montisgal-events-db:
     image: mysql:8.2.0
     environment:

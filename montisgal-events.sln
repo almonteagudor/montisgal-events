@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events", "montisgal-events\montisgal-events.csproj", "{29EF456C-FC75-457C-B129-1AB305EC3478}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{616FD4B7-0735-4A18-A2F5-2747FF9EB90F}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events.tests", "tests\montisgal-events.tests\montisgal-events.tests.csproj", "{CB95F586-1725-4096-B45B-299F919B3E0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events.domain", "src\montisgal-events.domain\montisgal-events.domain.csproj", "{DF377F44-5482-49D3-8568-8CA94C708E98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events.application", "src\montisgal-events.application\montisgal-events.application.csproj", "{05F47DE9-3EF9-4E9C-B377-1F3F70780A26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "montisgal-events.mvc", "src\montisgal-events.mvc\montisgal-events.mvc.csproj", "{12C80E83-639A-4157-B198-AF76F4059D6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +19,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29EF456C-FC75-457C-B129-1AB305EC3478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29EF456C-FC75-457C-B129-1AB305EC3478}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29EF456C-FC75-457C-B129-1AB305EC3478}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29EF456C-FC75-457C-B129-1AB305EC3478}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB95F586-1725-4096-B45B-299F919B3E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB95F586-1725-4096-B45B-299F919B3E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB95F586-1725-4096-B45B-299F919B3E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB95F586-1725-4096-B45B-299F919B3E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF377F44-5482-49D3-8568-8CA94C708E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF377F44-5482-49D3-8568-8CA94C708E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF377F44-5482-49D3-8568-8CA94C708E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF377F44-5482-49D3-8568-8CA94C708E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05F47DE9-3EF9-4E9C-B377-1F3F70780A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F47DE9-3EF9-4E9C-B377-1F3F70780A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F47DE9-3EF9-4E9C-B377-1F3F70780A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F47DE9-3EF9-4E9C-B377-1F3F70780A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12C80E83-639A-4157-B198-AF76F4059D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C80E83-639A-4157-B198-AF76F4059D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C80E83-639A-4157-B198-AF76F4059D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C80E83-639A-4157-B198-AF76F4059D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
