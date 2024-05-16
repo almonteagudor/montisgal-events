@@ -1,5 +1,5 @@
 using montisgal_events.application.Groups;
-using montisgal_events.domain.Group;
+using montisgal_events.domain.Groups;
 using montisgal_events.mvc.Repositories;
 
 namespace montisgal_events.mvc;
@@ -8,7 +8,6 @@ public static class MontisgalEventsServicesManager
 {
     public static void AddMontisgalEventsDependencies(this IServiceCollection services)
     {
-        
         services.AddRepositories();
         services.AddUseCases();
     }

@@ -1,4 +1,4 @@
-using montisgal_events.domain.Group;
+using montisgal_events.domain.Groups;
 
 namespace montisgal_events.application.Groups;
 

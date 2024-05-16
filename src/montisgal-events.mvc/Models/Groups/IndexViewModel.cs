@@ -1,6 +1,6 @@
 namespace montisgal_events.mvc.Models.Groups;
 
-public class IndexViewModel(List<domain.Group.Group> groups)
+public class IndexViewModel(List<domain.Groups.Group> groups)
 {
-    public List<domain.Group.Group> Groups { get; set; } = groups;
+    public List<domain.Groups.Group> Groups { get; set; } = groups;
 }

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using montisgal_events.domain.Group;
+using montisgal_events.domain.Groups;
 using montisgal_events.mvc.Data;
 using montisgal_events.mvc.Mappers;
 
@@ -21,17 +21,17 @@ public class GroupRepository(ApplicationDbContext applicationDbContext) : IGroup
         return groups.ToDomainEntity();
     }
 
-    public async Task<Group?> InsertGroup(Group group)
+    public async Task<bool> InsertGroup(Group group)
     {
         var entity = group.ToEntity();
 
         applicationDbContext.Groups.Add(entity);
         await applicationDbContext.SaveChangesAsync();
 
-        return group;
+        return await applicationDbContext.SaveChangesAsync() > 0;
     }
 
-    public Task<Group?> UpdateGroup(Group group)
+    public Task<bool> UpdateGroup(Group group)
     {
         throw new NotImplementedException();
     }

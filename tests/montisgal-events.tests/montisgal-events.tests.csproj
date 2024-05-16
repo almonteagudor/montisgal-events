@@ -21,4 +21,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\montisgal-events.domain\montisgal-events.domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -4,29 +4,31 @@
     ViewData["Title"] = "Groups";
 }
 
-<a asp-controller="Group" asp-action="Create" class="btn btn-primary">Create Group</a>
-
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Is public</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="align-content-center">Name</th>
+            <th scope="col" class="align-content-center">Description</th>
+            <th scope="col" class="align-content-center">Is public</th>
+            <th scope="col" class="text-center">
+                <a asp-controller="Group" asp-action="Create" class="btn btn-outline-success">
+                    <i class="bi bi-plus"></i>
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var group in Model.Groups)
         {
             <tr>
-                <th scope="row">@group.Name.Value</th>
-                <th scope="row">@group.Description.Value</th>
-                <td>
+                <td class="align-content-center">@group.Name</td>
+                <td class="align-content-center">@group.Description</td>
+                <td class="align-content-center">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" readonly asp-for="@group.GroupVisibility.Value" type="checkbox">
+                        <input class="form-check-input" readonly asp-for="@group.IsPublic" type="checkbox">
                     </div>
                 </td>
-                <td class="d-flex">
+                <td class="d-flex justify-content-center">
                     <form asp-controller="Group" asp-action="Delete" asp-route-id="@group.Id" asp-method="post" class="me-1">
                         <button type="submit" class="btn btn-outline-danger">
                             <i class="bi bi-archive"></i>

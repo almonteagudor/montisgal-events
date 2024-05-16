@@ -1,4 +1,4 @@
-namespace montisgal_events.domain.Group;
+namespace montisgal_events.domain.Groups;
 
 public interface IGroupRepository
 {
@@ -6,9 +6,9 @@ public interface IGroupRepository
     
     public Task<List<Group>> GetGroups(Guid ownerId);
 
-    public Task<Group?> InsertGroup(Group group);
+    public Task<bool> InsertGroup(Group group);
     
-    public Task<Group?> UpdateGroup(Group group);
+    public Task<bool> UpdateGroup(Group group);
     
     public Task<bool> DeleteGroup(Group group);
 }
