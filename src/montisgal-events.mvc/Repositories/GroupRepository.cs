@@ -26,7 +26,6 @@ public class GroupRepository(ApplicationDbContext applicationDbContext) : IGroup
         var entity = group.ToEntity();
 
         applicationDbContext.Groups.Add(entity);
-        await applicationDbContext.SaveChangesAsync();
 
         return await applicationDbContext.SaveChangesAsync() > 0;
     }

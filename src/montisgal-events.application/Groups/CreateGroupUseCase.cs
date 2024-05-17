@@ -8,7 +8,9 @@ public class CreateGroupUseCase(IGroupRepository repository)
     {
         var group = new Group(Guid.NewGuid(), name, description, isPublic, ownerId);
 
-        if (await repository.InsertGroup(group)) return group;
+        var valid = await repository.InsertGroup(group);
+        
+        if (valid) return group;
 
         return null;
     }

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using montisgal_events.domain.Groups;
 using montisgal_events.mvc.Data.Entities;
 
