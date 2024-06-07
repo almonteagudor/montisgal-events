@@ -1,16 +1,32 @@
-﻿services:
-  montisgal-events.mvc:
-    image: montisgal-events.mvc
+services:
+  nginx:
     build:
-      context: .
-      dockerfile: src/montisgal-events.mvc/Dockerfile
-  montisgal-events-db:
-    image: mysql:8.2.0
+      context: ./docker/nginx/nginx_1-25-2
+    container_name: montisgal-events-nginx
+    depends_on:
+      - php
+    ports:
+      - '80:80'
+  php:
+    build:
+      context: ./docker/php/php_8-2
+    container_name: montisgal-events-php
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '9000:9000'
+    volumes:
+      - '.:/var/www/html'
+  mysql:
+    container_name: montisgal-events-mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: montisgal_events
+      MYSQL_DATABASE: montisgal-events
       MYSQL_USER: montisgal
       MYSQL_PASSWORD: montisgal
+    image: mysql:8.2.0
     ports:
       - "3306:3306"
     volumes:
