@@ -1,8 +1,6 @@
 import './bootstrap.js';
-import $ from 'jquery';
-import 'foundation-sites/dist/js/foundation.min.js';
+import 'bootstrap';
 
-import 'foundation-sites/dist/css/foundation.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
 
-$(document).foundation();

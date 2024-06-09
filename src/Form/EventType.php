@@ -16,7 +16,7 @@ class EventType extends AbstractType
             ->add('name', null, ['attr' => ['pattern' => '*', 'minlength' => 3,]])
             ->add('description')
             ->add('startDate', DateTimeType::class, ['widget' => 'single_text',])
-            ->add('endDate', DateTimeType::class, ['date_widget' => 'single_text', 'required' => false])
+            ->add('endDate', DateTimeType::class, ['widget' => 'single_text', 'required' => false])
             ->add('location');
     }
 
