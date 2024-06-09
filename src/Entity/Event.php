@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -19,18 +20,25 @@ class Event
     private ?Uuid $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\Length(min: 3, max: 150)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(max: 500)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
+    #[Assert\Type(DateTimeInterface::class)]
     private ?DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\Type(DateTimeInterface::class)]
     private ?DateTimeInterface $endDate = null;
 
-    #[ORM\Column(length: 250, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 500)]
     private ?string $location = null;
 
     public function getId(): ?Uuid
@@ -91,7 +99,7 @@ class Event
         return $this->location;
     }
 
-    public function setLocation(?string $location): static
+    public function setLocation(string $location): static
     {
         $this->location = $location;
 
