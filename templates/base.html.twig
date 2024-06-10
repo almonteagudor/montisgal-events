@@ -12,7 +12,9 @@
 <body>
     {{ include('_navbar.html.twig') }}
 
-    {% block body %}{% endblock %}
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
 
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}

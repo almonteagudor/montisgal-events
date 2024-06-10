@@ -3,12 +3,16 @@
 {% block title %}Event index{% endblock %}
 
 {% block body %}
-    <h1>Event index</h1>
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>Event index</h1>
+        <a href="{{ path('app_event_new') }}" class="btn btn-success">Create new</a>
+    </div>
+
+    <hr>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>StartDate</th>
@@ -20,7 +24,6 @@
         <tbody>
         {% for event in events %}
             <tr>
-                <td>{{ event.id }}</td>
                 <td>{{ event.name }}</td>
                 <td>{{ event.description }}</td>
                 <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
@@ -33,11 +36,9 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_event_new') }}">Create new</a>
 {% endblock %}
