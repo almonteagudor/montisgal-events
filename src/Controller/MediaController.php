@@ -11,9 +11,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class MediaController extends AbstractController
 {
     #[Route('/uploads/images/{name}', name: 'app_media')]
-    public function index(string $name, #[Autowire('%images_dir%')] string $imagesDir): Response
+    public function getUploadedImage(string $name, #[Autowire('%images_dir%')] string $imagesDir): Response
     {
-        $file = new File("{$imagesDir}/{$name}");
+        $file = new File("$imagesDir/$name");
 
         return $this->file($file);
     }
