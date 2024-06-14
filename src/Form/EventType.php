@@ -24,7 +24,7 @@ class EventType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [
-                    new Image(['maxSize' => '1024k'])
+                    new Image(['maxSize' => '2048k'])
                 ]
             ]);
     }
