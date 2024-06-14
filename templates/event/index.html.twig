@@ -10,35 +10,9 @@
 
     <hr>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>StartDate</th>
-                <th>EndDate</th>
-                <th>Location</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="d-flex">
         {% for event in events %}
-            <tr>
-                <td>{{ event.name }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ event.location }}</td>
-                <td>
-                    <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 {% endblock %}
