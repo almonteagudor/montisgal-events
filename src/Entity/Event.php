@@ -41,6 +41,9 @@ class Event
     #[Assert\Length(max: 500)]
     private ?string $location = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $imageName = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -102,6 +105,18 @@ class Event
     public function setLocation(string $location): static
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }
