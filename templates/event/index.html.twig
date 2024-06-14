@@ -10,8 +10,10 @@
 
     <hr>
 
-    <div class="d-flex">
+    <div class="d-flex flex-wrap justify-content-between">
         {% for event in events %}
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
             {{ include('event/_event_card.html.twig', {'event': event}) }}
         {% endfor %}
     </div>

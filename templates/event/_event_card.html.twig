@@ -1,8 +1,8 @@
-<div class="card" style="width: 18rem;">
+<div class="card mb-3" style="width: 18rem;">
     <img src="/uploads/images/{{ event.imageName }}" class="card-img-top" alt="{{ event.imageName }}">
     <div class="card-body">
         <h5 class="card-title">{{ event.name }}</h5>
         <p class="card-text">{{ event.description }}</p>
-        <a href="#" class="btn btn-primary">Details</a>
+        <a href="{{ path('app_event_show', { 'id': event.id }) }}" class="btn btn-primary">Details</a>
     </div>
 </div>
