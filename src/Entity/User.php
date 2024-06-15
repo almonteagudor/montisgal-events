@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -12,24 +14,26 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['username'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\Id]
     private ?Uuid $id = null;
 
+    #[Assert\Length(min: 3, max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
+    #[Assert\Email]
+    #[Assert\Length(max: 150)]
     #[ORM\Column(length: 180)]
     private ?string $email = null;
-
-    #[ORM\Column]
-    private array $roles = [];
 
     #[ORM\Column]
     private ?string $password = null;
@@ -37,9 +41,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    /** @var string[] */
+    #[ORM\Column]
+    private array $roles = [];
+
+    /** @var Collection<int, EventGroup> */
+    #[ORM\OneToMany(targetEntity: EventGroup::class, mappedBy: 'userId', orphanRemoval: true)]
+    private Collection $eventGroups;
+
+    public function __construct()
+    {
+        $this->eventGroups = new ArrayCollection();
+    }
+
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -54,9 +83,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserIdentifier(): string
+    public function getPassword(): string
     {
-        return (string) $this->email;
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 
     public function getRoles(): array
@@ -75,16 +123,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getUserIdentifier(): string
     {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
+        return $this->email;
     }
 
     public function eraseCredentials(): void
@@ -93,26 +134,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getUsername(): ?string
+    /**
+     * @return Collection<int, EventGroup>
+     */
+    public function getEventGroups(): Collection
     {
-        return $this->username;
+        return $this->eventGroups;
     }
 
-    public function setUsername(string $username): static
+    public function addEventGroup(EventGroup $eventGroup): static
     {
-        $this->username = $username;
+        if (!$this->eventGroups->contains($eventGroup)) {
+            $this->eventGroups->add($eventGroup);
+            $eventGroup->setUser($this);
+        }
 
         return $this;
     }
 
-    public function isVerified(): bool
+    public function removeEventGroup(EventGroup $eventGroup): static
     {
-        return $this->isVerified;
-    }
-
-    public function setVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
+        if ($this->eventGroups->removeElement($eventGroup)) {
+            if ($eventGroup->getUser() === $this) {
+                $eventGroup->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -11,6 +11,7 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[ORM\Table(name: 'events')]
 class Event
 {
     #[ORM\Id]
@@ -24,25 +25,43 @@ class Event
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Assert\Length(max: 500)]
+    #[Assert\Length(max: 1000)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column]
+    private ?bool $confirmationNeeded = null;
+
     #[Assert\NotBlank]
     #[Assert\Type(DateTimeInterface::class)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $startDate = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\Type(DateTimeInterface::class)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $endDate = null;
 
-    #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
-    #[Assert\Length(max: 500)]
-    private ?string $location = null;
+    #[Assert\Type(DateTimeInterface::class)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?DateTimeInterface $registrationOpeningDate = null;
+
+    #[Assert\NotBlank]
+    #[Assert\Type(DateTimeInterface::class)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?DateTimeInterface $registrationClosingDate = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $imageName = null;
+
+    #[ORM\Column]
+    private ?bool $publicLocation = null;
+
+    #[ORM\ManyToOne]
+    private ?Location $location = null;
+
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?EventGroup $eventGroup = null;
 
     public function getId(): ?Uuid
     {
@@ -73,6 +92,18 @@ class Event
         return $this;
     }
 
+    public function isConfirmationNeeded(): ?bool
+    {
+        return $this->confirmationNeeded;
+    }
+
+    public function setConfirmationNeeded(bool $confirmationNeeded): static
+    {
+        $this->confirmationNeeded = $confirmationNeeded;
+
+        return $this;
+    }
+
     public function getStartDate(): ?DateTimeInterface
     {
         return $this->startDate;
@@ -97,14 +128,26 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?string
+    public function getRegistrationOpeningDate(): ?DateTimeInterface
     {
-        return $this->location;
+        return $this->registrationOpeningDate;
     }
 
-    public function setLocation(string $location): static
+    public function setRegistrationOpeningDate(DateTimeInterface $registrationOpeningDate): static
     {
-        $this->location = $location;
+        $this->registrationOpeningDate = $registrationOpeningDate;
+
+        return $this;
+    }
+
+    public function getRegistrationClosingDate(): ?DateTimeInterface
+    {
+        return $this->registrationClosingDate;
+    }
+
+    public function setRegistrationClosingDate(DateTimeInterface $registrationClosingDate): static
+    {
+        $this->registrationClosingDate = $registrationClosingDate;
 
         return $this;
     }
@@ -117,6 +160,42 @@ class Event
     public function setImageName(?string $imageName): static
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function isPublicLocation(): ?bool
+    {
+        return $this->publicLocation;
+    }
+
+    public function setPublicLocation(bool $publicLocation): static
+    {
+        $this->publicLocation = $publicLocation;
+
+        return $this;
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): static
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getEventGroup(): ?EventGroup
+    {
+        return $this->eventGroup;
+    }
+
+    public function setEventGroup(?EventGroup $eventGroup): static
+    {
+        $this->eventGroup = $eventGroup;
 
         return $this;
     }
