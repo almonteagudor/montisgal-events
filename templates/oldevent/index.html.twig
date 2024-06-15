@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>Event index</h1>
+        <a href="{{ path('app_event_new') }}" class="btn btn-success">Create new</a>
+    </div>
+
+    <hr>
+
+    <div class="d-flex flex-wrap justify-content-between">
+        {% for event in events %}
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
+            {{ include('event/_event_card.html.twig', {'event': event}) }}
+        {% endfor %}
+    </div>
+{% endblock %}

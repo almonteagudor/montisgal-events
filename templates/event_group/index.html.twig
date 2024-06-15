@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EventGroup index{% endblock %}
+
+{% block body %}
+    <h1>EventGroup index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Public</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event_group in event_groups %}
+            <tr>
+                <td>{{ event_group.id }}</td>
+                <td>{{ event_group.name }}</td>
+                <td>{{ event_group.description }}</td>
+                <td>{{ event_group.public ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_event_group_show', {'id': event_group.id}) }}">show</a>
+                    <a href="{{ path('app_event_group_edit', {'id': event_group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_group_new') }}">Create new</a>
+{% endblock %}

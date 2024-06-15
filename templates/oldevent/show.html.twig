@@ -20,10 +20,6 @@
                 <td>{{ event.description }}</td>
             </tr>
             <tr>
-                <th>ConfirmationNeeded</th>
-                <td>{{ event.confirmationNeeded ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
                 <th>StartDate</th>
                 <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
@@ -32,20 +28,8 @@
                 <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>RegistrationOpeningDate</th>
-                <td>{{ event.registrationOpeningDate ? event.registrationOpeningDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>RegistrationClosingDate</th>
-                <td>{{ event.registrationClosingDate ? event.registrationClosingDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ImageName</th>
-                <td>{{ event.imageName }}</td>
-            </tr>
-            <tr>
-                <th>PublicLocation</th>
-                <td>{{ event.publicLocation ? 'Yes' : 'No' }}</td>
+                <th>Location</th>
+                <td>{{ event.location }}</td>
             </tr>
         </tbody>
     </table>
