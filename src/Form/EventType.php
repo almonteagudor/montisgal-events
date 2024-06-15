@@ -34,11 +34,11 @@ class EventType extends AbstractType
             ->add('publicLocation')
             ->add('location', EntityType::class, [
                 'class' => Location::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('eventGroup', EntityType::class, [
                 'class' => EventGroup::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /** @var Collection<int, EventGroup> */
-    #[ORM\OneToMany(targetEntity: EventGroup::class, mappedBy: 'userId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: EventGroup::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $eventGroups;
 
     public function __construct()

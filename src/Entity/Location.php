@@ -19,13 +19,29 @@ class Location
     #[ORM\Id]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 3, max: 150)]
+    #[ORM\Column(length: 150)]
+    private ?string $name = null;
+
     #[Assert\Length(max: 1000)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getDescription(): ?string

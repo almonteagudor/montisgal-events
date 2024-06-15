@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/event/group')]
+#[Route('/groups')]
 class EventGroupController extends AbstractController
 {
     #[Route('/', name: 'app_event_group_index', methods: ['GET'])]

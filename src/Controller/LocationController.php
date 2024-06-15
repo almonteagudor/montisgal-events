@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/location')]
+#[Route('/locations')]
 class LocationController extends AbstractController
 {
     #[Route('/', name: 'app_location_index', methods: ['GET'])]
