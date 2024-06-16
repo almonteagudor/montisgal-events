@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Montisgal Events</a>
+        <a class="navbar-brand" href="{{ path('app_index') }}">Montisgal Events</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,16 @@
                        href="{{ path('app_event_index') }}">Events</a>
                 </li>
             </ul>
+
+            {% if is_granted('ROLE_USER') %}
+                Hello {{ app.user.username }}
+                <span class="mx-2"></span>
+                <a href="{{ path('app_logout') }}" class="nav-link"><i class="bi bi-box-arrow-right"></i></a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="nav-link">Login</a>
+                <span class="mx-2"></span>
+                <a href="{{ path('app_register') }}" class="nav-link">Register</a>
+            {% endif %}
         </div>
     </div>
 </nav>
