@@ -27,6 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Uuid $id = null;
 
     #[Assert\Length(min: 3, max: 50)]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
@@ -39,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column]
-    private bool $isVerified = false;
+    private bool $verified = false;
 
     /** @var string[] */
     #[ORM\Column]
@@ -48,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** @var Collection<int, EventGroup> */
     #[ORM\OneToMany(targetEntity: EventGroup::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $eventGroups;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $imageName = null;
 
     public function __construct()
     {
@@ -97,12 +101,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isVerified(): bool
     {
-        return $this->isVerified;
+        return $this->verified;
     }
 
-    public function setVerified(bool $isVerified): static
+    public function setVerified(bool $verified): static
     {
-        $this->isVerified = $isVerified;
+        $this->verified = $verified;
 
         return $this;
     }
@@ -159,6 +163,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $eventGroup->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }

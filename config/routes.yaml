@@ -3,3 +3,15 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+super_admin_controllers:
+    prefix: '/super-admin'
+    resource:
+        path: ../src/Controller/SuperAdmin/
+        namespace: App\Controller\SuperAdmin
+    type: attribute
+admin_controllers:
+    prefix: '/admin'
+    resource:
+        path: ../src/Controller/Admin/
+        namespace: App\Controller\Admin
+    type: attribute

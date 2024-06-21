@@ -1,5 +1,5 @@
 /.idea/
-/public/uploads/
+/uploads/
 
 ###> symfony/framework-bundle ###
 /.env.local

@@ -1,0 +1,13 @@
+<div class="card mb-3" style="width: 18rem;">
+    {% if user.imageName %}
+        <img src="{{ path('app_media_user_image', { 'name': user.imageName }) }}" class="card-img-top" alt="{{ user.imageName }}">
+    {% endif %}
+
+    <div class="card-body">
+        <h5 class="card-title">{{ user.username }}</h5>
+        <div class="card-text">
+            <span class="text-{{ user.isVerified ? 'success' : 'danger' }}">{{ user.email }}</span>
+        </div>
+        <a href="{{ path('super_admin_user_show', { 'id': user.id }) }}" class="btn btn-primary">Details</a>
+    </div>
+</div>
