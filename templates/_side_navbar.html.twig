@@ -1,0 +1,16 @@
+{% set currentPath = app.request.attributes.get('_route') %}
+
+<div class="list-group-flush">
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_home' ? 'active' : '' }}"
+       href="{{ path('app_home') }}"><i class="bi bi-house"></i> Home</a>
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_user_index' ? 'active' : '' }}"
+       href="{{ path('app_user_index') }}"><i class="bi bi-people"></i> Users</a>
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_event_group_index' ? 'active' : '' }}"
+       href="{{ path('app_event_group_index') }}"><i class="bi bi-collection"></i> Groups</a>
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_location_index' ? 'active' : '' }}"
+       href="{{ path('app_location_index') }}"><i class="bi bi-geo-alt"></i> Locations</a>
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_event_index' ? 'active' : '' }}"
+       href="{{ path('app_event_index') }}"><i class="bi bi-calendar4-event"></i> Events</a>
+    <a class="list-group-item list-group-item-action list-group-item-secondary p-3 {{ currentPath == 'app_logout' ? 'active' : '' }}"
+       href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i> Exit</a>
+</div>

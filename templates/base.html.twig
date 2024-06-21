@@ -10,10 +10,10 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-    {{ include('_navbar.html.twig') }}
+    {% include '_navbar.html.twig' %}
 
-    <div class="container">
-        {% block body %}{% endblock %}
+    <div id="app">
+        {% block app %}{% endblock %}
     </div>
 
     {% block javascripts %}

@@ -1,17 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}User index{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>User index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Password</th>
                 <th>IsVerified</th>
                 <th>Roles</th>
                 <th>actions</th>
@@ -20,10 +18,8 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 <td>

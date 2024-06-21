@@ -1,6 +1,4 @@
-{% set currentPath = app.request.attributes.get('_route') %}
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-secondary bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_index') }}">Montisgal Events</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -8,38 +6,24 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ currentPath == 'app_home' ? 'active' : '' }}" aria-current="page"
-                       href="{{ path('app_home') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ currentPath == 'app_user_index' ? 'active' : '' }}" aria-current="page"
-                       href="{{ path('app_user_index') }}">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ currentPath == 'app_event_group_index' ? 'active' : '' }}" aria-current="page"
-                       href="{{ path('app_event_group_index') }}">Groups</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ currentPath == 'app_location_index' ? 'active' : '' }}" aria-current="page"
-                       href="{{ path('app_location_index') }}">Locations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ currentPath == 'app_event_index' ? 'active' : '' }}" aria-current="page"
-                       href="{{ path('app_event_index') }}">Events</a>
-                </li>
-            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
 
-            {% if is_granted('ROLE_USER') %}
-                Hello {{ app.user.username }}
-                <span class="mx-2"></span>
-                <a href="{{ path('app_logout') }}" class="nav-link"><i class="bi bi-box-arrow-right"></i></a>
-            {% else %}
-                <a href="{{ path('app_login') }}" class="nav-link">Login</a>
-                <span class="mx-2"></span>
-                <a href="{{ path('app_register') }}" class="nav-link">Register</a>
-            {% endif %}
+
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                {% if is_granted('ROLE_USER') %}
+                    <span class="navbar-text">Hello {{ app.user.username }}</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>

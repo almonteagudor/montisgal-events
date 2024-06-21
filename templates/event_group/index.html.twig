@@ -1,14 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}EventGroup index{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>EventGroup index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Public</th>
@@ -18,7 +17,6 @@
         <tbody>
         {% for event_group in event_groups %}
             <tr>
-                <td>{{ event_group.id }}</td>
                 <td>{{ event_group.name }}</td>
                 <td>{{ event_group.description }}</td>
                 <td>{{ event_group.public ? 'Yes' : 'No' }}</td>
