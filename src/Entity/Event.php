@@ -14,18 +14,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'events')]
 class Event
 {
-    #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\Id]
     private ?Uuid $id = null;
 
-    #[ORM\Column(length: 150)]
     #[Assert\Length(min: 3, max: 150)]
+    #[ORM\Column(length: 150)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Length(max: 1000)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -59,8 +59,8 @@ class Event
     #[ORM\ManyToOne]
     private ?Location $location = null;
 
-    #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'events')]
     private ?EventGroup $eventGroup = null;
 
     public function getId(): ?Uuid

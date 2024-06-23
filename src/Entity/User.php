@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['username'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['name'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -29,7 +29,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 3, max: 50)]
     #[Assert\NotBlank]
     #[ORM\Column(length: 50)]
-    private ?string $username = null;
+    private ?string $name = null;
+
+    #[Assert\Length(min: 3, max: 50)]
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 50)]
+    private ?string $slug = null;
 
     #[Assert\Email]
     #[Assert\Length(max: 150)]
@@ -42,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $verified = false;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $imageName = null;
+
     /** @var string[] */
     #[ORM\Column]
     private array $roles = [];
@@ -49,9 +57,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** @var Collection<int, EventGroup> */
     #[ORM\OneToMany(targetEntity: EventGroup::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $eventGroups;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $imageName = null;
 
     public function __construct()
     {
@@ -63,14 +68,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getName(): ?string
     {
-        return $this->username;
+        return $this->name;
     }
 
-    public function setUsername(string $username): static
+    public function setName(string $name): static
     {
-        $this->username = $username;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -111,6 +128,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -118,6 +147,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getRoleName(): string
+    {
+        if(in_array('ROLE_SUPER_ADMIN', $this->roles)) return 'Super Admin';
+        if(in_array('ROLE_ADMIN', $this->roles)) return 'Admin';
+
+        return 'User';
     }
 
     public function setRoles(array $roles): static
@@ -163,18 +200,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $eventGroup->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function setImageName(?string $imageName): static
-    {
-        $this->imageName = $imageName;
 
         return $this;
     }
