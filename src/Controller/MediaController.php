@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class MediaController extends AbstractController
 {
     #[Route('/uploads/images/user/{name}', name: 'app_media_user_image')]
-    public function getUploadedImage(string $name, FileManagerService $fileManager): Response
+    public function getUploadedUserImage(string $name, FileManagerService $fileManager): Response
     {
         $file = $fileManager->getUserImage($name);
 
