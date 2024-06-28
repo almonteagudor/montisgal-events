@@ -11,7 +11,7 @@
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if is_granted('ROLE_USER') %}
-                    <span class="navbar-text">Hello {{ app.user.username }}</span>
+                    <span class="navbar-text">Hello {{ app.user.userName }}</span>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-right"></i></a>
                     </li>

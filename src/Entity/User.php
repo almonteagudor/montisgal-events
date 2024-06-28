@@ -16,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['name'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USER_NAME', fields: ['userName'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_SLUG', fields: ['slug'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -29,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min: 3, max: 50)]
     #[Assert\NotBlank]
     #[ORM\Column(length: 50)]
-    private ?string $name = null;
+    private ?string $userName = null;
 
     #[Assert\Length(min: 3, max: 50)]
     #[Assert\NotBlank]
@@ -41,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 100)]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -68,14 +69,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getUserName(): ?string
     {
-        return $this->name;
+        return $this->userName;
     }
 
-    public function setName(string $name): static
+    public function setUserName(string $userName): static
     {
-        $this->name = $name;
+        $this->userName = $userName;
 
         return $this;
     }
