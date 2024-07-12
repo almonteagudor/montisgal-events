@@ -4,7 +4,7 @@
     {% endif %}
 
     <div class="card-body">
-        <h5 class="card-title">{{ user.name }} ({{ user.roleName }})</h5>
+        <h5 class="card-title">{{ user.userName }} ({{ user.roleName }})</h5>
         <div class="card-text">
             <span class="text-{{ user.isVerified ? 'success' : 'danger' }}" title="{{ user.isVerified ? 'Verified' : 'Not verified' }}">{{ user.email }}</span>
         </div>
