@@ -2,90 +2,72 @@
 
 namespace App\Controller\SuperAdmin;
 
-use App\Entity\User;
-use App\Form\UserType;
-use App\Repository\UserRepository;
-use App\Service\FileManagerService;
-use Doctrine\ORM\EntityManagerInterface;
+use MontisgalEvents\Shared\Application\Exceptions\AccessDeniedException;
+use MontisgalEvents\Shared\Domain\Exceptions\NotFoundException;
+use MontisgalEvents\Shared\Domain\Exceptions\ValidationException;
+use MontisgalEvents\SuperAdmin\Users\Application\CreateUser\CreateUserCommand;
+use MontisgalEvents\SuperAdmin\Users\Application\CreateUser\CreateUserCommandHandler;
+use MontisgalEvents\SuperAdmin\Users\Application\DeleteUser\DeleteUserCommand;
+use MontisgalEvents\SuperAdmin\Users\Application\DeleteUser\DeleteUserCommandHandler;
+use MontisgalEvents\SuperAdmin\Users\Application\GetUsers\GetUsersQuery;
+use MontisgalEvents\SuperAdmin\Users\Application\GetUsers\GetUsersQueryHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/users')]
 class UserController extends AbstractController
 {
     #[Route('', name: 'super_admin_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(GetUsersQueryHandler $handler): JsonResponse
     {
-        return $this->render('super_admin/user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
+        try {
+            $users = $handler->execute(new GetUsersQuery());
 
-    #[Route('/new', name: 'super_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, FileManagerService $fileManager): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-
-            $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
-
-            if ($image = $form['image']->getData()) {
-                $filename = $fileManager->saveUserImage($image);
-                $user->setImageName($filename);
-            }
-
-            $entityManager->flush();
-
-            return $this->redirectToRoute('super_admin_user_index', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse($users->toArray());
+        } catch (AccessDeniedException $e) {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
         }
 
-        return $this->render('super_admin/user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
     }
 
-    #[Route('/{id}', name: 'super_admin_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    #[Route('', name: 'super_admin_user_new', methods: ['POST'])]
+    public function newUser(Request $request, CreateUserCommandHandler $handler): JsonResponse
     {
-        return $this->render('super_admin/user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
+        $command = new CreateUserCommand(
+            $request->getPayload()->get('userName'),
+            $request->getPayload()->get('email'),
+            $request->getPayload()->get('password'),
+            null,
+            $request->getPayload()->get('rol'),
+        );
 
-    #[Route('/{id}/edit', name: 'super_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('super_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        try {
+            $user = $handler->execute($command);
+        } catch (AccessDeniedException $e) {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+        } catch (ValidationException $e) {
+            return new JsonResponse($e->toArray(), Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->render('super_admin/user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        return new JsonResponse($user->toArray());
     }
 
-    #[Route('/{id}', name: 'super_admin_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'super_admin_user_show', methods: ['DELETE'])]
+    public function deleteUser(string $id, DeleteUserCommandHandler $handler): JsonResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+        $command = new DeleteUserCommand($id);
 
-        return $this->redirectToRoute('super_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        try {
+            $handler->execute($command);
+
+            return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+        } catch (AccessDeniedException) {
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
+        } catch (NotFoundException) {
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
     }
 }

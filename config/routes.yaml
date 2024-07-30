@@ -3,12 +3,17 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+api_login_check:
+    path: /login
+
 super_admin_controllers:
     prefix: '/super-admin'
     resource:
         path: ../src/Controller/SuperAdmin/
         namespace: App\Controller\SuperAdmin
     type: attribute
+
 admin_controllers:
     prefix: '/admin'
     resource:

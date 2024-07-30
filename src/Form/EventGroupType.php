@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\EventGroup;
-use App\Entity\User;
+use App\Entity\UserEntity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +18,7 @@ class EventGroupType extends AbstractType
             ->add('description')
             ->add('public')
             ->add('user', EntityType::class, [
-                'class' => User::class,
+                'class' => UserEntity::class,
                 'choice_label' => 'id',
             ])
         ;

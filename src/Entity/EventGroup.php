@@ -35,7 +35,7 @@ class EventGroup
     #[Assert\NotNull]
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(inversedBy: 'eventGroups')]
-    private ?User $user = null;
+    private ?UserEntity $user = null;
 
     /**
      * @var Collection<int, Event>
@@ -89,12 +89,12 @@ class EventGroup
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?UserEntity
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): static
+    public function setUser(?UserEntity $user): static
     {
         $this->user = $user;
 

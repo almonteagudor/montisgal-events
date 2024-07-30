@@ -19,6 +19,8 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    MontisgalEvents\:
+        resource: '../montisgal-events/'
 
     App\Service\FileManagerService:
         arguments:

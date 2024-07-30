@@ -2,14 +2,14 @@
 
 namespace App\Service;
 
-use App\Entity\User;
+use App\Entity\UserEntity;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-readonly class UserService
+readonly final class UserService
 {
     public function __construct(
         private SluggerInterface $slugger,
@@ -24,8 +24,8 @@ readonly class UserService
         string $plainPassword,
         bool $verified = false,
         ?string $imageName = null
-    ): User | ConstraintViolationListInterface {
-        $user = new User();
+    ): UserEntity | ConstraintViolationListInterface {
+        $user = new UserEntity();
 
         $user->setUsername($userName);
         $user->setSlug($this->slugger->slug($userName));
