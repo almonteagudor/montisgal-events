@@ -8,7 +8,7 @@ api_login_check:
     path: /login
 
 super_admin_users_controllers:
-    prefix: '/super-admin/users-prueba'
+    prefix: '/super-admin/users'
     resource:
         path: ../src/Controller/SuperAdmin/Users/
         namespace: App\Controller\SuperAdmin\Users
