@@ -107,7 +107,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     }
 
     //    /**
-    //     * @return User[] Returns an array of User objects
+    //     * @return Users[] Returns an array of Users objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -121,7 +121,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?User
+    //    public function findOneBySomeField($value): ?Users
     //    {
     //        return $this->createQueryBuilder('u')
     //            ->andWhere('u.exampleField = :val')

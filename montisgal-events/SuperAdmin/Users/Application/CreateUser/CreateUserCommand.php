@@ -4,37 +4,31 @@ declare(strict_types=1);
 
 namespace MontisgalEvents\SuperAdmin\Users\Application\CreateUser;
 
-final class CreateUserCommand
+final readonly class CreateUserCommand
 {
     public function __construct(
-        private $userName,
-        private $email,
-        private $password,
-        private $imageName,
-        private $rol,
+        private string $userName,
+        private string $email,
+        private string $password,
+        private string $rol,
     ) {}
 
-    public function userName()
+    public function userName(): string
     {
         return $this->userName;
     }
 
-    public function email()
+    public function email(): string
     {
         return $this->email;
     }
 
-    public function password()
+    public function password(): string
     {
         return $this->password;
     }
 
-    public function imageName()
-    {
-        return $this->imageName;
-    }
-
-    public function rol()
+    public function rol(): string
     {
         return $this->rol;
     }

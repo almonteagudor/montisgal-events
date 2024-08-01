@@ -33,12 +33,8 @@ readonly final class Rol
     /**
      * @throws ValidationException
      */
-    public static function fromValue($value): self
+    public static function fromValue(string $value): self
     {
-        if(!is_string($value)) {
-            throw ValidationException::create(User::ENTITY_NAME, self::PROPERTY_NAME, 'String required');
-        }
-
         return match ($value) {
             self::ROLE_USER => new self(self::ROLE_USER),
             self::ROLE_ADMIN => new self(self::ROLE_ADMIN),

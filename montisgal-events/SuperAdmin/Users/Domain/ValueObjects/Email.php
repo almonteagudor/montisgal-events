@@ -16,7 +16,7 @@ readonly final class Email
     /**
      * @throws ValidationException
      */
-    public static function fromValue($value): self
+    public static function fromValue(string $value): self
     {
         self::validate($value);
 
@@ -33,12 +33,8 @@ readonly final class Email
     /**
      * @throws ValidationException
      */
-    private static function validate($value): void
+    private static function validate(string $value): void
     {
-        if(!is_string($value) || empty($value)) {
-            throw ValidationException::create(User::ENTITY_NAME, self::PROPERTY_NAME, 'String required');
-        }
-
         if (strlen($value) < self::MIN_LENGTH) {
             throw ValidationException::create(User::ENTITY_NAME, self::PROPERTY_NAME, 'Minimum length is ' . self::MIN_LENGTH);
         }

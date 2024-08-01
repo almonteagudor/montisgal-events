@@ -15,7 +15,7 @@ readonly final class ImageName
     /**
      * @throws ValidationException
      */
-    public static function fromValue($value): self
+    public static function fromValue(string $value): self
     {
         self::validate($value);
 
@@ -32,12 +32,8 @@ readonly final class ImageName
     /**
      * @throws ValidationException
      */
-    private static function validate($value): void
+    private static function validate(string $value): void
     {
-        if(!is_string($value)) {
-            throw ValidationException::create(User::ENTITY_NAME, self::PROPERTY_NAME, 'String required');
-        }
-
         if (strlen($value) > self::MAX_LENGTH) {
             throw ValidationException::create(User::ENTITY_NAME, self::PROPERTY_NAME, 'Maximum length is ' . self::MAX_LENGTH);
         }

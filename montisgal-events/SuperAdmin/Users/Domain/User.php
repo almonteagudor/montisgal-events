@@ -21,13 +21,13 @@ class User
      * @throws ValidationException
      */
     public static function user(
-        $id,
-        $userName,
-        $email,
-        $password,
-        $verified,
-        $imageName,
-        $rol,
+        string $id,
+        string $userName,
+        string $email,
+        string $password,
+        bool $verified,
+        ?string $imageName,
+        string $rol,
     ): self
     {
         return self::fromValues($id, $userName, $email, $password, $verified, $imageName, $rol);
@@ -37,12 +37,12 @@ class User
      * @throws ValidationException
      */
     public static function newUser(
-        $userName,
-        $email,
-        $password,
-        $verified,
-        $imageName,
-        $rol,
+        string $userName,
+        string $email,
+        string $password,
+        bool $verified,
+        ?string $imageName,
+        string $rol,
     ): self
     {
         return self::fromValues(null, $userName, $email, $password, $verified, $imageName, $rol);
@@ -115,12 +115,12 @@ class User
     /**
      * @throws ValidationException
      */
-    public function setImageName($imageName): void
+    public function setImageName(?string $imageName): void
     {
-        if (is_null($imageName)) {
-            $this->imageName = null;
-        } else {
+        if ($imageName) {
             $this->imageName = ImageName::fromValue($imageName);
+        } else {
+            $this->imageName = null;
         }
     }
 
@@ -175,13 +175,13 @@ class User
      * @throws ValidationException
      */
     private static function fromValues(
-        $id,
-        $userName,
-        $email,
-        $password,
-        $verified,
-        $imageName,
-        $rol,
+        ?string $id,
+        string $userName,
+        string $email,
+        string $password,
+        bool $verified,
+        ?string $imageName,
+        string $rol,
     ): self
     {
         $validationException = ValidationException::empty();

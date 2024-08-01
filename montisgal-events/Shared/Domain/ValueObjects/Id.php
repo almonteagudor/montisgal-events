@@ -14,7 +14,7 @@ readonly final class Id
 
     public static function random(): self
     {
-        return new self(Uuid::v4());
+        return new self(Uuid::v7());
     }
 
     /**
