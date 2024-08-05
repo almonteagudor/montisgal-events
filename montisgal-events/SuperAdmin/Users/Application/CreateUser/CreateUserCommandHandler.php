@@ -34,7 +34,7 @@ readonly final class CreateUserCommandHandler
             $command->email(),
             $password,
             false,
-            $command->imageName(),
+            null,
             $command->rol(),
         );
 

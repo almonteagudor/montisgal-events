@@ -8,10 +8,10 @@ api_login_check:
     path: /login
 
 super_admin_users_controllers:
-    prefix: '/super-admin/users'
+    prefix: '/super-admin'
     resource:
-        path: ../src/Controller/SuperAdmin/Users/
-        namespace: App\Controller\SuperAdmin\Users
+        path: ../src/Controller/SuperAdmin/
+        namespace: App\Controller\SuperAdmin
     type: attribute
 
 admin_controllers:

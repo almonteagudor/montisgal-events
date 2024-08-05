@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/users')]
 class DeleteUserController extends AbstractController
 {
     #[Route('/{id}', name: 'super_admin_users_delete_user', methods: ['DELETE'])]
