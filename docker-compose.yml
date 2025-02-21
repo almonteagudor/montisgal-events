@@ -1,4 +1,12 @@
 services:
+  nginx:
+    build:
+      context: ./docker/nginx/nginx_1-25-2
+    container_name: montisgal-events-nginx
+    depends_on:
+      - php
+    ports:
+      - '50000:80'
   php:
     build:
       context: ./docker/php/php_8-2
